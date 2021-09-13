@@ -1,6 +1,12 @@
 # Fraud-Detector-Workshop
 
+# 1. 워크샵 필수 사항
+- 세이지 메이커 노트북 인스턴스는 메모리가 많은 ml.m5.4xlarge (64 GiB) 의 사용을 권장 합니다.
+    - 기본 샘플링된 데이터 세트 200,000 개 로딩시에 약 9.6 GB 의 메모리를 사용합니다.
 
+
+
+# 2. 워크샵 업데이트 사항
 
 ## <li> Update: TBD</li>
 
@@ -44,7 +50,7 @@ Amazon Fraud Detector (AFD) 코드 업로드
  | | | | |-0.download_kaggle_dataset.ipynb
 ```
 
-## 유동님 이제 작업 하셔도 됩니다. 
+
 
 
 
