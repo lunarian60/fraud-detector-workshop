@@ -14,6 +14,8 @@
      - 디텍터 생성 노트북
  |-4.1.Inference-Scratch.ipynb
      - 추론 생성 노트북
+ |-4.2..Inference-Parallel.ipynb     
+     - 추론을 병렬로 실행
  |-7.1.CleanUp.ipynb 
      - 리소스 제거 노트북
  |-9.1.Error.ipynb
