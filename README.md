@@ -4,6 +4,10 @@
 
 ## <li> Update: TBD</li>
 
+## <li> Update: 09-13-2021</li>
+Amazon Fraud Detector (AFD) 코드 업로드
+- 자세한 내역은 여기를 클릭 하세요. --> [AFD ReadMe](code/phase0/afd/README.md)
+
 ## <li> Update: 09-06-2021 </li>
     
     
