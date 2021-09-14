@@ -48,6 +48,11 @@ Amazon Fraud Detector (AFD) 코드 업로드
  | | | | |-p_utils.py
  | | | |-How_to_downlaod_kaggle_data
  | | | | |-0.download_kaggle_dataset.ipynb
+ | | |-sm
+ | | | |-xgboost
+ | | | | |-src
+ | | | | | |-p_utils.py
+ | | | | |-fraud-detector-xgboost.ipynb
 ```
 
 
