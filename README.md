@@ -1,12 +1,29 @@
 # Fraud-Detector-Workshop
 
 # 1. 워크샵 필수 사항
-- 세이지 메이커 노트북 인스턴스는 메모리가 많은 ml.m5.4xlarge (64 GiB) 의 사용을 권장 합니다.
+- [중요] 세이지 메이커 노트북 인스턴스는 메모리가 많은 `ml.m5.4xlarge (64 GiB)` 의 사용을 권장 합니다.
     - 기본 샘플링된 데이터 세트 200,000 개 로딩시에 약 9.6 GB 의 메모리를 사용합니다.
+- [중요] 세이지 메이커 노트북 인스턴스 생성시에 EBS 볼륨을 `20 GB` 로 설정 해주세요. 
+    - 디폴트로 사용하면 욜량이 부족합니다.
 
+# 2. 워크샵 실행 순서
+- (1) 데이터 준비
+    - A. 캐글 데이터 다운로드
+        - code/phase0/prepare_data/How_to_downlaod_kaggle_data/0.download_kaggle_dataset.ipynb
+    - B. 데이터 스키밍
+        - code/phase0/prepare_data/0.1.Skim_Dataset.ipynb
+    - C. 훈련, 테스트 데이터 세트 준비
+        - code/phase0/prepare_data/1.1.Prepare_Dataset.ipynb
+- (2) Amazon Fraud Detector 
+    - 아래 폴더의 노트북을 순서대로 실행
+    - code/phase0/afd/
+- (3) Amazon SageMaker
+    - 아래 노트북 실행
+    - code/phase0/sm/xgboost/fraud-detector-xgboost.ipynb
 
+        
 
-# 2. 워크샵 업데이트 사항
+# 3. 워크샵 업데이트 사항
 
 ## <li> Update: TBD</li>
 
