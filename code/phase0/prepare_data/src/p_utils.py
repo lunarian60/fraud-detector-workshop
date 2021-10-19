@@ -2,6 +2,126 @@ import pandas as pd
 import os
 
 
+
+
+#########################
+# 데이터 탐색
+#########################
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+sns.set_style(style="whitegrid")
+
+
+def drop_column(raw_df, col):
+    '''
+    해당 컬럼 제거
+    '''
+    df = raw_df.drop(columns=[col])
+    return df
+
+
+def create_datetype_cols(ldf, source_col, target_col):
+    '''
+    YYYY-MM-DD HH:00:00 을 가지는 EVENT_TIMESTAMP_SIMPLE 추가
+    '''
+    df = ldf.copy()
+    
+    def convert_time(str):
+        try:
+            date = datetime.strptime(str, '%Y-%m-%d %H:%M:%S')
+
+        except:
+            print(f"Error: Incorrect form: {str}")
+            str = '1988-12-31' 
+            date = datetime.strptime(str, '%Y-%m-%d')        
+        return date
+
+    df['temp'] = pd.to_datetime(df[source_col], format= '%Y.%m.%d %H:%M:%S')        
+    df[target_col] = df['temp'].apply(lambda x: x.strftime("%Y-%m-%d %H")) # yyyy-mm-dd 로 컬럼 생성    
+    df[target_col] = pd.to_datetime(df[target_col], format= '%Y-%m-%d %H:%M:%S')    
+    df.drop(columns=['temp'], inplace=True)
+            
+    return df
+
+
+
+def show_classes_date(ldf,params):
+    '''
+    시간의 흐름에 따라 프로드의 시간별 비율을 보여줌. 
+    '''
+    df = ldf.copy()
+    
+    frac = params['frac']
+    target_col = params['target_col']    
+    label = params['label_col']        
+    xticks = params['xticks']            
+    
+    df = df.sample(frac=frac, random_state= 100)
+    g_df = df[[target_col, label]].groupby(target_col)[label].mean()
+    # dp(g_df)
+    plt.figure(figsize=(params['FigSizeW'],params['FigSizeH']))
+    plt.plot(g_df)
+    plt.ylabel('average fraud_mean')
+    plt.title(params['title'])
+    plt.xlabel(target_col)
+    plt.xticks(g_df.index[::xticks], rotation='vertical')    
+    print('')
+
+
+
+def display_category_dist(fdf, cols, top_num = 20, verbose=False):
+    '''
+    카테고리 변수의 값을 큰 값 기준으로 정령하여 보기
+    '''
+    cols_num = len(cols)
+    fig, axes = plt.subplots(nrows=1, ncols=cols_num)
+    fig.set_size_inches(20,5)
+
+    
+    for idx, col in enumerate(cols):
+#        df_unique = fdf[col].value_counts()[0:top_num]
+        df_unique = fdf[col].value_counts().sort_values(ascending=False)[0:top_num]        
+
+        axes[idx].set_title(col)
+        sns.barplot(ax=axes[idx], x=df_unique.index, y=df_unique.values)
+        
+        if verbose:
+            print(f'\n{df_unique}')
+
+
+
+def plot_cor_feature_label(df, params):
+    '''
+    컬럼의 갯수와 평균값을 보여줌
+    '''
+    num = params['num_x_items']
+    col = params['target_col']
+    label_col = params['label_col']    
+
+    stats = df[[col, label_col]].groupby(col).agg(['count', 'mean'])
+    stats = stats.reset_index()
+    stats.columns = [col, 'count', 'mean']
+    stats = stats.sort_values('mean', ascending=False)
+    # dp(stats)
+    fig, ax1 = plt.subplots(figsize=(params['FigSizeW'],params['FigSizeH']))
+    
+    ax2 = ax1.twinx()
+    ax1.bar(stats[col].astype(str).values[0:num], stats['count'].values[0:num])
+    ax1.set_xticklabels(stats[col].astype(str).values[0:num], rotation='vertical')
+    ax2.plot(stats['mean'].values[0:num], color='red')
+    ax2.set_ylim(0,1.5)
+    ax2.set_ylabel('Mean Target')
+    ax1.set_ylabel('Frequency')
+    ax1.set_xlabel(col)
+    ax1.set_title('TopN ' + col + 's based on frequency')
+
+
+
+#########################
+# 데이터 준비 관련 함수
+#########################
+
 def save_csv_local(raw_df, preproc_folder, label, file_name):
     '''
     주어진 파일을 저장
