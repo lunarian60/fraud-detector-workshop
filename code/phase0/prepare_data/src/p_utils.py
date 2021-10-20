@@ -138,6 +138,24 @@ def save_csv_local(raw_df, preproc_folder, label, file_name):
     
     return file_path
 
+import os
+def save_pickle_local(raw_df, preproc_folder, label, file_name):
+    '''
+    데이터 프레임을 pickle 파일로 저장
+    '''
+    df = raw_df.copy()
+    
+    os.makedirs(preproc_folder, exist_ok=True)        
+    df = pd.concat([df[label], df.drop([label], axis=1)], axis=1)
+    file_path = os.path.join(preproc_folder, file_name)
+
+    df.to_pickle(file_path)
+    print(f'{file_path} is saved')
+
+    
+    return file_path
+
+
 
 from IPython.display import display as dp
 
@@ -156,6 +174,38 @@ def change_code_to_string(raw, col, new_col, verbose=False):
     
     return df
 
+
+def split_data_by_time(df, target_col, label_col, total_samples, split_rate, train_end, test_start, verbose=False):
+    '''
+    시간 관점으로 번반부튼 훈련, 후반부는 테스트 데이터로 해서 샘블링 함.
+    '''
+    
+    # 훈련 데이터 셋
+    train_df = df[df[target_col] <= train_end]   
+    train_num = int(total_samples * (1 - split_rate))    # 훈련 샘플 데이터 수
+    train_sample = train_df.sample(n = train_num, random_state=100)    # 샘플링    
+
+    print("train sample shape: ", train_sample.shape)
+    print("train min time: ", train_sample[target_col].min())
+    print("train max time: ", train_sample[target_col].max())
+    print("Train fraud ratio: ", round(train_sample[label_col].value_counts()[1] / train_sample.shape[0],5))
+    print("# of Train frauds: ", train_sample[label_col].value_counts()[1])     
+
+
+    # 테스트 데이터 셋    
+    test_df = df[df[target_col] >= test_start]    
+    test_num = int(total_samples * (split_rate))    # 테스트 샘플 데이터 수
+    test_sample = test_df.sample(n = test_num, random_state=100)    
+    
+
+    print("\ntest sample shape: ", test_sample.shape)    
+    print("test min time: ", test_sample[target_col].min())
+    print("test max time: ", test_sample[target_col].max())
+    print("Test fraud ratio: ", round(test_sample[label_col].value_counts()[1] / test_sample.shape[0],5))    
+    print("# of test frauds: ", test_sample[label_col].value_counts()[1])         
+    
+    
+    return train_sample, test_sample
 
 #########################
 # 평가
