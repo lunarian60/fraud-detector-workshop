@@ -207,6 +207,33 @@ def split_data_by_time(df, target_col, label_col, total_samples, split_rate, tra
     
     return train_sample, test_sample
 
+import seaborn as sns
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+def show_corr_matrix(df, width=7, height=7):
+    '''
+    상관관계를 보여 줌
+    '''
+
+    sns.set(style="whitegrid")
+
+
+    # Generate a mask for the upper triangle
+    corr = df.corr()
+    mask = np.triu(np.ones_like(corr, dtype=bool))
+
+    # Set up the matplotlib figure
+    f, ax = plt.subplots(figsize=(width, height))
+    # Generate a custom diverging colormap
+    cmap = sns.diverging_palette(230, 20, as_cmap=True)
+    # Draw the heatmap with the mask and correct aspect ratio
+    sns.heatmap(corr, mask=mask, cmap=cmap, vmax=1.0, vmin=-1.0, center=0,
+                square=True, linewidths=.5, cbar_kws={"shrink": .5})
+
+
+
 #########################
 # 평가
 #########################
