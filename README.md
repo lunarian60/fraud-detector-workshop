@@ -7,74 +7,55 @@
     - 디폴트로 사용하면 욜량이 부족합니다.
 
 # 2. 워크샵 실행 순서
-- (1) 데이터 준비
-    - A. 캐글 데이터 다운로드
-        - code/phase0/prepare_data/How_to_downlaod_kaggle_data/0.download_kaggle_dataset.ipynb
-    - B. 데이터 스키밍
-        - code/phase0/prepare_data/0.1.Skim_Dataset.ipynb
-    - C. 훈련, 테스트 데이터 세트 준비
-        - code/phase0/prepare_data/1.1.Prepare_Dataset.ipynb
-- (2) Amazon Fraud Detector 
-    - 아래 폴더의 노트북을 순서대로 실행
-    - code/phase0/afd/
-- (3) Amazon SageMaker
+
+## (1) 데이터 준비
+   
+- A. 캐글 데이터 다운로드
+    - code/phase0/prepare_data/How_to_downlaod_kaggle_data/0.download_kaggle_dataset.ipynb
+- B. 데이터 스키밍
+    - code/phase0/prepare_data/0.1.Skim_Dataset.ipynb
+- C. 훈련, 테스트 데이터 세트 준비
+    - code/phase0/prepare_data/1.1.Prepare_Dataset.ipynb
+    - <font color="red">[신규 및 권장] Transaction fraud insights 모델 타입으로 진행시에 아래 노트북 추가 실행 필요</font>
+        - code/phase0/prepare_data/1.2.Prepare_Datase_AFD_TRANt.ipynb
+
+
+## (2) Amazon Fraud Detector 
+
+- [신규] Transaction fraud insights 모델 타입 실행시
+    - 5.1.Trans-Create-Model.ipynb
+    - 5.2.Trans-Create-Detector.ipynb
+    - 5.3.Trans-Inference-Scratch.ipynb
+    - 5.4.Trans-Inference-Parallel.ipynb
+    - 7.1.CleanUp.ipynb 
+
+
+- ONLINE_FRAUD_INSIGHTS insights 모델 타입 실행시
+    - 2.1.Create-Model.ipynb
+    - 3.1.Create-Detector.ipynb
+    - 4.1.Inference-Scratch.ipynb
+    - 4.2.Inference-Parallel.ipynb
+    - 7.1.CleanUp.ipynb 
+
+
+## (3) Amazon SageMaker
+
     - 아래 노트북 실행
     - code/phase0/sm/xgboost/fraud-detector-xgboost.ipynb
 
         
 
-# 3. 워크샵 업데이트 사항
+# 9. 참조 자료
 
-## <li> Update: TBD</li>
+##  Amazon Fraud Detector
 
-## <li> Update: 09-13-2021</li>
-Amazon Fraud Detector (AFD) 코드 업로드
-- 자세한 내역은 여기를 클릭 하세요. --> [AFD ReadMe](code/phase0/afd/README.md)
-
-## <li> Update: 09-06-2021 </li>
+- 처음 시작: Build, train, and deploy a fraud detection modelwith Amazon Fraud Detector
+    - https://aws.amazon.com/getting-started/hands-on/build-train-deploy-fraud-detection-model-amazon-fraud-detector/
     
     
-### 파일 추가 목록
-아래의 파일 세가지를 순서대로 실행하면, prepare_data/data/train/train.csv , prepare_data/data/test/test.csv 생성되고, 또한 S3에 디폴트 버킷에 업로딩이 됩니다. 이것을 바탕으로 afd, sm 에서 훈련, 테스트 데이터를 로딩하여 사용할 수 있습니다.
+- Transaction fraud insights 모델 타입을 위한 개발자 가이드 
+    - [ransaction fraud insights](https://docs.aws.amazon.com/frauddetector/latest/ug/transaction-fraud-insights.html)
+    - [공식 AFD 샘플 코드 예시](https://github.com/aws-samples/aws-fraud-detector-samples)
+        - 아래는 위 리파지토리 하위에 있는 TRANSACTION_FRAUD_INSIGHTS 의 예시 입니다.
+        - https://github.com/aws-samples/aws-fraud-detector-samples/blob/master/Fraud_Detector_End_to_End_Stored_Data.ipynb
 
-- How_to_downlaod_kaggle_data/
-    - 0.download_kaggle_dataset.ipynb
-        - AdTalking 데이터 세트 다운로드 방법
-
-
-- prepare_data/
-    - 0.1.Skim_Dataset.ipynb
-        - 간략하게 캐클에서 다운로드 받은 데이터 확인
-    - 1.1.Prepare_Dataset.ipynb
-        - 데이터 세트 샘플링하여 훈련, 테스트 데이터 세트 저장
-
-
-
-- 참고: 파일 폴더 생성 명령어
-`find . | sed -e "s/[^-][^\/]*\// |/g" -e "s/|\([^ ]\)/|-\1/"`
-
-```
- |-code
- | |-phase0
- | | |-afd
- | | | |-src
- | | |-prepare_data
- | | | |-1.1.Prepare_Dataset.ipynb
- | | | |-0.1.Skim_Dataset.ipynb
- | | | |-src
- | | | | |-p_utils.py
- | | | |-How_to_downlaod_kaggle_data
- | | | | |-0.download_kaggle_dataset.ipynb
- | | |-sm
- | | | |-xgboost
- | | | | |-src
- | | | | | |-p_utils.py
- | | | | |-fraud-detector-xgboost.ipynb
-```
-
-
-
-
-
-
-    

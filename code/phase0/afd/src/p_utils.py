@@ -255,4 +255,3 @@ def plot_conf_mat(cm, classes, title, cmap = plt.cm.Greens):
         plt.tight_layout()
         plt.ylabel('True label')
         plt.xlabel('Predicted label')
-
