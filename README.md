@@ -54,6 +54,7 @@
     
     
 - Transaction fraud insights 모델 타입을 위한 개발자 가이드 
+    - 블로그 --> ['Detect online transaction fraud with new Amazon Fraud Detector features'](https://aws.amazon.com/blogs/machine-learning/detect-online-transaction-fraud-with-new-amazon-fraud-detector-features/)
     - [ransaction fraud insights](https://docs.aws.amazon.com/frauddetector/latest/ug/transaction-fraud-insights.html)
     - [공식 AFD 샘플 코드 예시](https://github.com/aws-samples/aws-fraud-detector-samples)
         - 아래는 위 리파지토리 하위에 있는 TRANSACTION_FRAUD_INSIGHTS 의 예시 입니다.
