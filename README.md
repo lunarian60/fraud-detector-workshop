@@ -20,6 +20,9 @@
         - code/phase0/prepare_data/1.2.Prepare_Datase_AFD_TRANt.ipynb
 
 
+- 준비된 데이터 컬럼에서 모델 훈련을 위한 피쳐 선택 가이드 입니다.
+    - [모델 훈련을 위한 피쳐 선택 가이드](code/phase0/prepare_data/Feature_Selection_Guide.md)
+
 ## (2) Amazon Fraud Detector 
 
 - [신규] Transaction fraud insights 모델 타입 실행시
